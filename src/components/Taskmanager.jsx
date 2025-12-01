@@ -59,7 +59,7 @@ const Taskmanager = () => {
 
               <button
                 type="submit"
-                className='mt-2 w-full bg-indigo-500 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20'
+                className='mt-2 w-full bg-green-500 hover:bg-green-500 text-white font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20'
               >
                 <Plus size={20} />
                 Add Task
