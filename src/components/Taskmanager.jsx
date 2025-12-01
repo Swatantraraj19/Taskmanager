@@ -31,7 +31,7 @@ const Taskmanager = () => {
         <div className='flex flex-col justify-center w-full md:w-1/2 '>
           <div className='bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl'>
             <h1 className='text-3xl font-bold mb-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent'>
-              Task Manager
+              My Awesome Task Manager
             </h1>
             <p className='text-zinc-400 mb-8'>Keep track of your daily goals.</p>
 
