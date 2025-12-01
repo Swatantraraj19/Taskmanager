@@ -31,7 +31,7 @@ const Taskmanager = () => {
         <div className='flex flex-col justify-center w-full md:w-1/2 '>
           <div className='bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl'>
             <h1 className='text-3xl font-bold mb-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent'>
-              My Awesome Task Manager
+              Task Manager
             </h1>
             <p className='text-zinc-400 mb-8'>Keep track of your daily goals.</p>
 
@@ -59,7 +59,7 @@ const Taskmanager = () => {
 
               <button
                 type="submit"
-                className='mt-2 w-full bg-indigo-500 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20'
+                className='mt-2 w-full bg-green-500 hover:bg-green-500 text-white font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20'
               >
                 <Plus size={20} />
                 Add Task
