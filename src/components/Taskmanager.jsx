@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { Trash2, Plus, CheckCircle2 } from 'lucide-react'
 
+import { useLocalStorage } from '../hooks/useLocalStorage'
+
 const Taskmanager = () => {
   const [task, settask] = useState('')
   const [taskdesc, settaskdesc] = useState('')
-  const [tasklist, settasklist] = useState([])
+  const [tasklist, settasklist] = useLocalStorage('tasks', [])
 
   function add(e) {
     e.preventDefault()
