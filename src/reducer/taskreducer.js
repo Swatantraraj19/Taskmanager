@@ -26,6 +26,12 @@ export const taskReducer = (state, action) => {
         tasklist: state.tasklist.filter((_, index) => index !== action.payload)
       }
 
+    case "DELETE_ALL" :
+      return {
+        ...state,
+        tasklist: []
+      }
+
     case "TOGGLE_TASK":
       return {
         ...state,

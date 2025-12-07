@@ -69,7 +69,17 @@ const Taskmanager = () => {
               <button
                 type="submit"
                 className='mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20'
-                onClick={() => dispatch({ type: "ADD_TASK" })}>
+                onClick={() => {
+                  if (state.task.trim() === "") {
+                    alert("Please enter a task");
+                    return;
+                  }
+                  if (state.taskdesc.trim() === "") {
+                    alert("Please enter a task description");
+                    return;
+                  }
+                  dispatch({ type: "ADD_TASK" });
+                }}>
                 <Plus size={20} />
                 Add Task
               </button>
@@ -80,9 +90,19 @@ const Taskmanager = () => {
         <div className='flex flex-col w-full md:w-1/2 '>
           <div className='flex items-center justify-between mb-6'>
             <h2 className='text-xl font-semibold text-zinc-200'>Your Tasks</h2>
-            <span className='bg-zinc-800 text-zinc-400 text-xs px-3 py-1 rounded-full border border-zinc-700'>
-              {state.tasklist.length} {state.tasklist.length === 1 ? 'Task' : 'Tasks'}
-            </span>
+            <div className='flex gap-4 items-center'>
+              {state.tasklist.length > 0 && (
+                <button
+                  onClick={() => dispatch({ type: "DELETE_ALL" })}
+                  className='text-xs text-red-400 hover:text-red-300 transition-colors'
+                >
+                  Delete All
+                </button>
+              )}
+              <span className='bg-zinc-800 text-zinc-400 text-xs px-3 py-1 rounded-full border border-zinc-700'>
+                {state.tasklist.length} {state.tasklist.length === 1 ? 'Task' : 'Tasks'}
+              </span>
+            </div>
           </div>
 
           <div className='flex-1 overflow-y-auto pr-2 space-y-3 custom-scrollbar '>
