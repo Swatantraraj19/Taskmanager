@@ -36,10 +36,7 @@ const Taskmanager = () => {
 
   return (
     <div className='min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center p-4 font-sans'>
-
       <div className='w-full max-w-4xl flex flex-col  md:flex-row gap-8'>
-
-
         <div className='flex flex-col justify-center w-full md:w-1/2 '>
           <div className='bg-zinc-900 border border-zinc-800 rounded-2xl p-8 shadow-2xl'>
             <h1 className='text-3xl font-bold mb-2 bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent'>
@@ -80,7 +77,6 @@ const Taskmanager = () => {
           </div>
         </div>
 
-
         <div className='flex flex-col w-full md:w-1/2 '>
           <div className='flex items-center justify-between mb-6'>
             <h2 className='text-xl font-semibold text-zinc-200'>Your Tasks</h2>
@@ -101,10 +97,18 @@ const Taskmanager = () => {
                   key={index}
                   className='group bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-xl p-5 transition-all hover:shadow-lg hover:shadow-black/20 flex justify-between items-start animate-in fade-in slide-in-from-bottom-4 duration-300'
                 >
-                  <div className='flex-1 pr-4'>
-                    <h3 className='font-semibold text-zinc-100 mb-1'>{item.task}</h3>
-                    <p className='text-sm text-zinc-400 leading-relaxed'>{item.taskdesc}</p>
-                    <span className='text-xs text-zinc-600 mt-3 block'>{item.createdAt}</span>
+                  <div className='flex items-start gap-4 flex-1 pr-4'>
+                    <button
+                      onClick={() => dispatch({ type: "TOGGLE_TASK", payload: index })}
+                      className={`mt-1 flex-shrink-0 transition-colors ${item.isCompleted ? 'text-green-500' : 'text-zinc-600 hover:text-zinc-400'}`}
+                    >
+                      <CheckCircle2 size={22} className={item.isCompleted ? "fill-current opacity-100" : "opacity-50"} />
+                    </button>
+                    <div>
+                      <h3 className={`font-semibold mb-1 transition-all ${item.isCompleted ? 'text-zinc-500 line-through decoration-zinc-700' : 'text-zinc-100'}`}>{item.task}</h3>
+                      <p className={`text-sm leading-relaxed transition-all ${item.isCompleted ? 'text-zinc-600' : 'text-zinc-400'}`}>{item.taskdesc}</p>
+                      <span className='text-xs text-zinc-600 mt-3 block'>{item.createdAt}</span>
+                    </div>
                   </div>
                   <button
                     onClick={() => dispatch({ type: "DELETE_TASK", payload: (index) })}
@@ -118,10 +122,7 @@ const Taskmanager = () => {
             )}
           </div>
         </div>
-
-
       </div>
-
     </div>
   )
 }

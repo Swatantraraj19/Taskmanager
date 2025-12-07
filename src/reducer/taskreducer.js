@@ -14,7 +14,7 @@ export const taskReducer = (state, action) => {
     case "ADD_TASK":
       return {
         ...state,
-        tasklist: [...state.tasklist, { task: state.task, taskdesc: state.taskdesc, createdAt: new Date().toLocaleTimeString() }],
+        tasklist: [...state.tasklist, { task: state.task, taskdesc: state.taskdesc, createdAt: new Date().toLocaleTimeString(), isCompleted: false }],
         task: "",
         taskdesc: ""
       }
@@ -24,13 +24,17 @@ export const taskReducer = (state, action) => {
       return {
         ...state,
         tasklist: state.tasklist.filter((_, index) => index !== action.payload)
+      }
 
+    case "TOGGLE_TASK":
+      return {
+        ...state,
+        tasklist: state.tasklist.map((task, index) =>
+          index === action.payload ? { ...task, isCompleted: !task.isCompleted } : task
+        )
       }
 
     default:
       return state;
   }
 };
-
-
-
