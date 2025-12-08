@@ -26,7 +26,7 @@ export const taskReducer = (state, action) => {
         tasklist: state.tasklist.filter((_, index) => index !== action.payload)
       }
 
-    case "DELETE_ALL" :
+    case "DELETE_ALL":
       return {
         ...state,
         tasklist: []
@@ -38,6 +38,27 @@ export const taskReducer = (state, action) => {
         tasklist: state.tasklist.map((task, index) =>
           index === action.payload ? { ...task, isCompleted: !task.isCompleted } : task
         )
+      }
+
+    case "EDIT_REQUEST":
+      return {
+        ...state,
+        task: state.tasklist[action.payload].task,
+        taskdesc: state.tasklist[action.payload].taskdesc,
+        isEditing: true,
+        editId: action.payload
+      }
+
+    case "UPDATE_TASK":
+      return {
+        ...state,
+        tasklist: state.tasklist.map((task, index) =>
+          index === state.editId ? { ...task, task: state.task, taskdesc: state.taskdesc } : task
+        ),
+        isEditing: false,
+        editId: null,
+        task: "",
+        taskdesc: ""
       }
 
     default:

@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
-import { Trash2, Plus, CheckCircle2 } from 'lucide-react'
+import { Trash2, Plus, CheckCircle2, Pencil } from 'lucide-react'
 import { taskReducer } from '../reducer/taskreducer'
 // import { useLocalStorage } from '../hooks/useLocalStorage'
 
@@ -8,7 +8,9 @@ const initialState = {
   task: "",
   taskdesc: "",
   createdAt: "",
-  tasklist: []
+  tasklist: [],
+  isEditing: false,
+  editId: null
 
 }
 
@@ -44,7 +46,26 @@ const Taskmanager = () => {
             </h1>
             <p className='text-zinc-400 mb-8'>Keep track of your daily goals.</p>
 
-            <form onSubmit={(e) => { e.preventDefault() }} className='flex flex-col gap-4'>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (state.task.trim() === "") {
+                  alert("Please enter a task");
+                  return;
+                }
+                if (state.taskdesc.trim() === "") {
+                  alert("Please enter a task description");
+                  return;
+                }
+
+                if (state.isEditing) {
+                  dispatch({ type: "UPDATE_TASK" });
+                } else {
+                  dispatch({ type: "ADD_TASK" });
+                }
+              }}
+              className='flex flex-col gap-4'
+            >
               <div className='space-y-2'>
                 <label className='text-sm font-medium text-zinc-300 ml-1'>Title</label>
                 <input
@@ -68,20 +89,10 @@ const Taskmanager = () => {
 
               <button
                 type="submit"
-                className='mt-2 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/20'
-                onClick={() => {
-                  if (state.task.trim() === "") {
-                    alert("Please enter a task");
-                    return;
-                  }
-                  if (state.taskdesc.trim() === "") {
-                    alert("Please enter a task description");
-                    return;
-                  }
-                  dispatch({ type: "ADD_TASK" });
-                }}>
-                <Plus size={20} />
-                Add Task
+                className={`mt-2 w-full font-semibold py-3 rounded-xl transition-all active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg ${state.isEditing ? 'bg-orange-500 hover:bg-orange-600 shadow-orange-500/20' : 'bg-blue-500 hover:bg-blue-600 shadow-indigo-500/20'} text-white`}
+              >
+                {state.isEditing ? <Pencil size={20} /> : <Plus size={20} />}
+                {state.isEditing ? 'Update Task' : 'Add Task'}
               </button>
             </form>
           </div>
@@ -130,13 +141,22 @@ const Taskmanager = () => {
                       <span className='text-xs text-zinc-600 mt-3 block'>{item.createdAt}</span>
                     </div>
                   </div>
-                  <button
-                    onClick={() => dispatch({ type: "DELETE_TASK", payload: (index) })}
-                    className='text-zinc-500 hover:text-red-400 p-2 hover:bg-red-400/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100'
-                    title="Delete task"
-                  >
-                    <Trash2 size={18} />
-                  </button>
+                  <div className='flex items-center gap-2'>
+                    <button
+                      onClick={() => dispatch({ type: "EDIT_REQUEST", payload: index })}
+                      className='text-zinc-500 hover:text-orange-400 p-2 hover:bg-orange-400/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100'
+                      title="Edit task"
+                    >
+                      <Pencil size={18} />
+                    </button>
+                    <button
+                      onClick={() => dispatch({ type: "DELETE_TASK", payload: (index) })}
+                      className='text-zinc-500 hover:text-red-400 p-2 hover:bg-red-400/10 rounded-lg transition-colors opacity-0 group-hover:opacity-100'
+                      title="Delete task"
+                    >
+                      <Trash2 size={18} />
+                    </button>
+                  </div>
                 </div>
               ))
             )}
